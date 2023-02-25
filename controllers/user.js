@@ -37,41 +37,15 @@ class UserController {
         }
     }
 
-    async logIn(req, res) {
-        try {
-            console.log(req.body)
-            const { email, password } = req.body;
-
-            // if (!req.body) {
-            //     req.status(400).send("Please enter the email and password")
-            // }
-            const user = await User.findOne({ email }, { _id: 0 })
-            console.log(user)
-            if (!user) {
-                return res.status(400).json({ message: "User Not Found" })
-            }
-            if (user && (await bcrypt.compare(password, user.password))) {
-                let userStatus = await User.updateOne({ email: email }, {
-                    logInStatus: true
-                })
-                console.log(userStatus)
-                await new UserActivity(req.body).save();
-                if (userStatus.acknowledged === true) {
-                    let logInUser = await User.findOne({ email }, { _id: 0 })
-                    console.log(logInUser)
-                    return res.status(200).json({ success: true, data: logInUser, message: "login successfully" })
-                }
-                else {
-                    return res.status(400).json({ message: "please veriry your password" })
-
-                }
-            }
-        }
-        catch (error) {
-            return error.message
-        }
-
-    }
+    async login(req, res) {
+        const user = await User.findOne({ email: req.body.email, password: req.body.password });
+        
+          console.log(user, 'data')
+          const token = await user.generateAuthToken();
+          console.log(token, 'token')
+          return res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 15, httpOnly: false }).json({ success: true, data: admin, message: 'Login Successful' })
+       
+      }
 
     async findOs() {
         let find_os = await
