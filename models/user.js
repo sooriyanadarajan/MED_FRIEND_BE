@@ -20,7 +20,7 @@ const userScheme = new mongoose.Schema({
     name: {
         type: String,
         required: [false, 'please provide name'],
-        unique: true,
+        // unique: true,
         trim: true
     },
     email: {
@@ -36,7 +36,7 @@ const userScheme = new mongoose.Schema({
         type: String,
         trim: true,
         minlength: 8,
-        validate: [validatePassword, 'Password Invalid format. At least 1 capital letter.., 1 lowercase letter.., 1 special character.., 1 numeric character..,'],
+        // validate: [validatePassword, 'Password Invalid format. At least 1 capital letter.., 1 lowercase letter.., 1 special character.., 1 numeric character..,'],
     },
     dob: {
         type: String,
@@ -66,7 +66,7 @@ userScheme.methods.generateAuthToken = async function() {
 
 // check email and password match
 userScheme.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email:email })
     if (!user) {
         throw new Error('User Not Found. Kindly Register')
     }
