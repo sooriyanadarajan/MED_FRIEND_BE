@@ -38,14 +38,33 @@ class UserController {
     }
 
     async login(req, res) {
-        const user = await User.findOne({ email: req.body.email, password: req.body.password });
-        
-          console.log(user, 'data')
-          const token = await user.generateAuthToken();
-          console.log(token, 'token')
-          return res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 15, httpOnly: false }).json({ success: true, data: admin, message: 'Login Successful' })
-       
-      }
+
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        if (user && user.status === false) {
+            return res.status(401).send({ success: false, message: 'Your Account Has Been Disabled Please Contact Support Team ' })
+        }
+        const token = await user.generateAuthToken()
+        return res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: false }).json({ success: true, message: "Login Successful" })
+  
+    }
+
+
+    async getUser(req, res) {
+
+        const user = await User.findOne({ _id: req.user._id });
+        res.status(200).send({ success: true, data: user, message: 'User Info' })
+
+    }
+
+
+    async  logout(req, res, next) {
+
+        const user = req.user
+        res.clearCookie('token')
+        await user.save()
+        res.status(200).json({ success: true, message: 'Logout Success' })
+
+    }
 
     async findOs() {
         let find_os = await
