@@ -1,9 +1,11 @@
 require('dotenv').config({ path: __dirname + '/config/.env' })
 const express = require('express')
 require('./config/db')
+
+const { seedSettings } = require("./services/seed");
+seedSettings();
 const useragent = require('express-useragent')
 const userRouter = require('./routers/user')
-
 var cookieParser = require('cookie-parser')
 
 const app = express()

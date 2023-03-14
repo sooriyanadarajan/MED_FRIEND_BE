@@ -20,7 +20,7 @@ const userScheme = new mongoose.Schema({
     name: {
         type: String,
         required: [false, 'please provide name'],
-        // unique: true,
+        unique: true,
         trim: true
     },
     email: {
@@ -52,6 +52,9 @@ const userScheme = new mongoose.Schema({
     status: {
         type: Boolean,
     },
+    otp: {
+        type: Number
+    }
 
 }, { timestamps: true });
 
