@@ -6,6 +6,8 @@ const { seedSettings } = require("./services/seed");
 seedSettings();
 const useragent = require('express-useragent')
 const userRouter = require('./routers/user')
+const doctorRouter = require('./routers/doctor')
+const dashboardRouter = require('./routers/dashboard')
 var cookieParser = require('cookie-parser')
 
 const app = express()
@@ -28,6 +30,8 @@ app.use(function (req, res, next) {
 app.use(useragent.express())
 app.use(cookieParser())
 app.use(userRouter);
+app.use('/doctor',doctorRouter);
+app.use(dashboardRouter)
 
 const server = app.listen(port, () => {
     console.log("MED_FRIEND Running on : localhost", process.env.PORT);
