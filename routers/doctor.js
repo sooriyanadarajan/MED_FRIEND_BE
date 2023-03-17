@@ -10,7 +10,7 @@ const router = express.Router()
 
 //Doctor API's
 router.post('/create',  asyncHandler(doctorController.createDoctor))
-router.post('/list',  asyncHandler(doctorController.listDoctor))
+router.get('/list',  asyncHandler(doctorController.listDoctor))
 router.patch('/update',  asyncHandler(doctorController.updateDoctor))
 router.delete('/delete/:id',  asyncHandler(doctorController.deleteDoctor))
 router.get('/status/:id',  asyncHandler(doctorController.changeDoctorStatus))
