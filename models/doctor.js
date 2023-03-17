@@ -22,10 +22,7 @@ var doctorSchema = mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false,
-    },
-    // defaultAddress: {
-    //     type: String,
-    // }
+    }
 }, { timestamps: true });
 
 
