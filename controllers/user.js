@@ -40,24 +40,27 @@ class UserController {
 
     async forgotPassword(req, res) {
         const user = await User.findOne({ email: req.body.email })
-        // user.mobileNum
+        let otp;
         var digits = '0123456789';
+        let OTP = '';
         for (let i = 0; i < 4; i++) {
-            let otp = digits[Math.floor(Math.random() * 10)];
+            OTP += digits[Math.floor(Math.random() * 10)];
         }
-        console.log(otp);
-        user.otp = otp
+        console.log('forgot password otp:', OTP);
+        user.otp = OTP
         await user.save()
+        res.status(200).json({ success: true, message: 'otp send successfully, please check !' })
 
     }
 
 
     async resetPassword(req, res) {
-
+        let otp = req.body.otp
         const user = await User.findOne({ email: req.body.email })
         if (otp == user.otp) {
             user.password = req.body.password
             await user.save()
+            res.status(200).json({ success: true, message: 'Password changed successfully' })
         }
     }
 
