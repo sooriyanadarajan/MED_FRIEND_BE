@@ -7,7 +7,7 @@ const doctor = async () => {
         {username: 'Priya', email: 'priya@gmail.com'}
     ];
     for (let val of check_item) {
-        let check_ex = await Doctor.findOne({ key: val.username });
+        let check_ex = await Doctor.findOne({ username: val.username });
         if (!check_ex) {
             await new Doctor(val).save();
         }
