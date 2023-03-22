@@ -29,7 +29,7 @@ class UserController {
 
     }
 
-
+ 
     async getUser(req, res) {
 
         const user = await User.findOne({ _id: req.user._id });

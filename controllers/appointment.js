@@ -4,6 +4,7 @@ class AppointmentController {
     constructor() {
 
     }
+    
     async createAppointment(req, res) {
         let create = await new Appointment(req.body).save();
         res.status(200).json({ success: true, message: 'Appointment Created', data: create })
