@@ -18,6 +18,10 @@ const AppointmentSchema = new mongoose.Schema({
     purpose: {
         type: String
     },
+    active: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: Boolean,
         default: true,
@@ -25,9 +29,17 @@ const AppointmentSchema = new mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false,
+    },
+    from: {
+        type: Date,
+        required: true
+    },
+    to: {
+        type: Date,
+        required: true
     }
 
 
-},{ timestamps: true });
+}, { timestamps: true });
 
 module.exports = mongoose.model('appointment', AppointmentSchema);

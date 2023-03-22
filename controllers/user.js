@@ -26,7 +26,7 @@ class UserController {
         }
         const token = await user.generateAuthToken()
         return res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: false }).json({ success: true, message: "Login Successful" })
-  
+
     }
 
 
@@ -37,24 +37,30 @@ class UserController {
 
     }
 
-    async forgotPassword(req, res){
-        const user = await User.findOne({email: req.body.email})
+
+    async forgotPassword(req, res) {
+        const user = await User.findOne({ email: req.body.email })
         // user.mobileNum
-      
-            var digits = '0123456789';
-            for (let i = 0; i < 4; i++ ) {
-                let otp = digits[Math.floor(Math.random() * 10)];
-            }
-            console.log(otp);
-            user.otp = otp
+        var digits = '0123456789';
+        for (let i = 0; i < 4; i++) {
+            let otp = digits[Math.floor(Math.random() * 10)];
+        }
+        console.log(otp);
+        user.otp = otp
+        await user.save()
+
     }
 
-    // async resetPassword(req, res){
-    //     const user = await User.findOne({email:req.body.email})
-    //     if(otp == user.otp){
-    //         user.password = j
-    //     }
-    // }
+
+    async resetPassword(req, res) {
+
+        const user = await User.findOne({ email: req.body.email })
+        if (otp == user.otp) {
+            user.password = req.body.password
+            await user.save()
+        }
+    }
+
 
     async logout(req, res, next) {
 
@@ -64,6 +70,8 @@ class UserController {
         res.status(200).json({ success: true, message: 'Logout Success' })
 
     }
+
+
 }
 
 module.exports = UserController
