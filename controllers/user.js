@@ -1,5 +1,7 @@
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
+var elasticemail = require('elasticemail');
+
 
 class UserController {
     constructor() {
@@ -40,15 +42,40 @@ class UserController {
 
     async forgotPassword(req, res) {
         const user = await User.findOne({ email: req.body.email })
+        console.log(user,'uswer')
         let otp;
         var digits = '0123456789';
         let OTP = '';
+
+        const to = req.body.email
+        const name = user.name
         for (let i = 0; i < 4; i++) {
             OTP += digits[Math.floor(Math.random() * 10)];
         }
         console.log('forgot password otp:', OTP);
         user.otp = OTP
         await user.save()
+        var client = elasticemail.createClient({
+            username: 'info.uptoz@gmail.com',
+            apiKey: '2B682661630CC395424CE7A8960F6870A10223BB376CD1DDBD0B033482E49DED62BF8ABF867B29CDE5141CF5BA972875'
+        });
+
+        var msg = {
+            from: 'info.uptoz@gmail.com',
+            from_name: 'MED FRIEND',
+            to: to,
+            subject: 'Forgot Password OTP',
+            body_text: 'Hai ' + name + 'Please check the OTP :'  + OTP 
+        };
+
+        client.mailer.send(msg, function (err, result) {
+            if (err) {
+                return console.error(err);
+            }
+            // res.send('OTP Sent Successfully', 'Result_id: ', result)
+            console.log('OTP Sent Successfully', 'Result_id:', result);
+        })
+      
         res.status(200).json({ success: true, message: 'otp send successfully, please check !' })
 
     }
