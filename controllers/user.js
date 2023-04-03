@@ -97,6 +97,7 @@ class UserController {
         if (user.otpverified == true ) {
             if(req.body.password == req.body.confirmPassword) {
                 user.password = req.body.password
+                user.otpverified= false
                 await user.save()
             }
             
