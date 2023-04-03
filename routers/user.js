@@ -13,6 +13,7 @@ router.post('/logIn', asyncHandler(userController.login))
 router.get('/getProfile', auth, asyncHandler(userController.getUser))
 router.get('/logOut', auth, asyncHandler(userController.logout))
 router.post('/forgotPassword', asyncHandler(userController.forgotPassword))
+router.post('/verifyPassword', asyncHandler(userController.verifyPassword))
 router.post('/resetPassword', asyncHandler(userController.resetPassword))
 
 module.exports = router
