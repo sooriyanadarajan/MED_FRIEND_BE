@@ -9,5 +9,6 @@ const router = express.Router()
 
 // Dashboard API's
 router.get('/dashboard', asyncHandler(dashboardController.Dashboard))
+router.post('/contactUs', asyncHandler(dashboardController.sendMail))
 
 module.exports = router

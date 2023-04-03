@@ -38,6 +38,8 @@ class AppointmentController {
         await category.save();
         res.status(200).send({ success: true, message: "Status Changed " })
     }
+
+    
 }
 
 module.exports = AppointmentController

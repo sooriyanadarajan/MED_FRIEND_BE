@@ -67,10 +67,12 @@ class UserController {
 
     async resetPassword(req, res) {
         const user = await User.findOne({ email: req.body.email })
-        if (user.otpverified == true) {
-            console.log()
-            user.password = req.body.password
-            await user.save()
+        if (user.otpverified == true ) {
+            if(req.body.password == req.body.confirmPassword) {
+                user.password = req.body.password
+                await user.save()
+            }
+            
             res.status(200).json({ success: true, message: 'Password changed successfully' })
         }
     }
