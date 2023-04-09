@@ -31,7 +31,7 @@ class UserController {
 
     }
 
- 
+
     async getUser(req, res) {
 
         const user = await User.findOne({ _id: req.user._id });
@@ -42,7 +42,7 @@ class UserController {
 
     async forgotPassword(req, res) {
         const user = await User.findOne({ email: req.body.email })
-        console.log(user,'uswer')
+        console.log(user, 'uswer')
         let otp;
         var digits = '0123456789';
         let OTP = '';
@@ -65,7 +65,7 @@ class UserController {
             from_name: 'MED FRIEND',
             to: to,
             subject: 'Forgot Password OTP',
-            body_text: 'Hai ' + name + 'Please check the OTP :'  + OTP 
+            body_text: 'Hai ' + name + 'Please check the OTP :' + OTP
         };
 
         client.mailer.send(msg, function (err, result) {
@@ -75,7 +75,7 @@ class UserController {
             // res.send('OTP Sent Successfully', 'Result_id: ', result)
             console.log('OTP Sent Successfully', 'Result_id:', result);
         })
-      
+
         res.status(200).json({ success: true, message: 'otp send successfully, please check !' })
 
     }
@@ -94,17 +94,17 @@ class UserController {
 
     async resetPassword(req, res) {
         const user = await User.findOne({ email: req.body.email })
-        if (user.otpverified == true ) {
-            if(req.body.password === req.body.confirmPassword) {
+        if (user.otpverified == true) {
+            if (req.body.password === req.body.confirmPassword) {
                 user.password = req.body.password
-                user.otpverified= false
+                user.otpverified = false
                 await user.save()
-            res.status(200).json({ success: true, message: 'Password changed successfully' })
+                res.status(200).json({ success: true, message: 'Password changed successfully' })
 
             }
             res.status(200).json({ success: true, message: 'Please give the password and confirm password as same' })
 
-            
+
         }
     }
 
@@ -118,7 +118,14 @@ class UserController {
 
     }
 
+    async updateProfile(req, res, next) {
 
+        const user = req.user
+        const updates = Object.keys(req.body)
+        updates.forEach((update) => user[update] = req.body[update])
+        await user.save();
+        return res.status(200).json({ success: true, message: ' profile details updated '})
+    }
 }
 
 module.exports = UserController

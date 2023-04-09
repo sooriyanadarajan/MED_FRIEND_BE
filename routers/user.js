@@ -2,7 +2,8 @@ const express = require('express')
 const auth = require('../middlewares/auth')
 const asyncHandler = require('../middlewares/async')
 
-const UserController = require('../controllers/user')
+const UserController = require('../controllers/user');
+const useractivity = require('../../../SooriyA/worked project/nft/nft_backend(old)/nft_backend/models/useractivity');
 
 const userController = new UserController();
 
@@ -15,5 +16,6 @@ router.get('/logOut', auth, asyncHandler(userController.logout))
 router.post('/forgotPassword', asyncHandler(userController.forgotPassword))
 router.post('/verifyPassword', asyncHandler(userController.verifyPassword))
 router.post('/resetPassword', asyncHandler(userController.resetPassword))
+router.post('/updateProfile', auth, asyncHandler(userController.updateProfile))
 
 module.exports = router
