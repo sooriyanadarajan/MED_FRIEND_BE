@@ -18,7 +18,7 @@ class DashboardController {
 
     async sendMail(req, res) {
 
-        const to = req.body.email
+        const to = "akhilreddytaniparthi@gmail.com" ||  req.body.email
         const name = req.body.name
         const num = req.body.mobile
         const message = req.body.message
@@ -32,14 +32,14 @@ class DashboardController {
             from_name: 'MED FRIEND',
             to: to,
             subject: 'Intimation Mail for View State',
-            body_text: 'Hello Boss!, ' + name + ' tried to reach You ! , Please Contact Back (' + num + ') Message : '+message
+            body_text: 'Hello Boss!, ' + name + ' tried to reach You ! , Please Contact Back (' + num + ') Message : ' + message
         };
 
         client.mailer.send(msg, function (err, result) {
             if (err) {
                 return console.error(err);
             }
-            res.send('Email Sent Successfully', 'Result_id: ', result)
+            res.status(200).json({ success: true, message: ''Email Sent Successfully', 'Result_id: ', result' })
             console.log('Email Sent Successfully', 'Result_id:', result);
         })
     }
