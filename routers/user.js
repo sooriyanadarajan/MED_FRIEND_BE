@@ -3,7 +3,7 @@ const auth = require('../middlewares/auth')
 const asyncHandler = require('../middlewares/async')
 
 const UserController = require('../controllers/user');
-
+ 
 const userController = new UserController();
 
 const router = express.Router()
