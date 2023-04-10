@@ -126,6 +126,7 @@ class UserController {
         await user.save();
         return res.status(200).json({ success: true, message: ' profile details updated '})
     }
+
 }
 
 module.exports = UserController

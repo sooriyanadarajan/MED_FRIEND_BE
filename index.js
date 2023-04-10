@@ -13,11 +13,12 @@ const dashboardRouter = require('./routers/dashboard')
 var cookieParser = require('cookie-parser')
 const multer  = require('multer');
 const path = require('path')
+const prescription = require('./models/prescription')
 
 const app = express()
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
-
+  
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -38,7 +39,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 const port = process.env.PORT || 7795
-// app.use(cors())
+
 
 app.use(function (req, res, next) {
     const allowedOrigins = ["http://localhost:4200", "http://localhost:4000"];
@@ -60,7 +61,9 @@ app.use('/purpose', purposeController)
 app.use(dashboardRouter)
 
 app.post('/upload', upload.single('image'), (req, res, next) => {
+   
     try {
+        // new prescription(objects).save()
         return res.status(201).json({
             message: 'File uploded successfully'
         });

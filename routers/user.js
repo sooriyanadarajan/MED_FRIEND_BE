@@ -3,6 +3,8 @@ const auth = require('../middlewares/auth')
 const asyncHandler = require('../middlewares/async')
 
 const UserController = require('../controllers/user');
+const PrescriptionController = require('../controllers/prescription');
+const prescriptionController = new PrescriptionController
  
 const userController = new UserController();
 
@@ -16,5 +18,6 @@ router.post('/forgotPassword', asyncHandler(userController.forgotPassword))
 router.post('/verifyPassword', asyncHandler(userController.verifyPassword))
 router.post('/resetPassword', asyncHandler(userController.resetPassword))
 router.post('/updateProfile', auth, asyncHandler(userController.updateProfile))
+router.post('/prescription', asyncHandler(prescriptionController.createPrescription))
 
 module.exports = router
