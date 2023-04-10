@@ -39,7 +39,7 @@ class DashboardController {
             if (err) {
                 return console.error(err);
             }
-            res.status(200).json({ success: true, message: ''Email Sent Successfully', 'Result_id: ', result' })
+            res.status(200).json({ success: true, message: 'Email Sent Successfully ' })
             console.log('Email Sent Successfully', 'Result_id:', result);
         })
     }
