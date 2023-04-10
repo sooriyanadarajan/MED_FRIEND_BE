@@ -34,7 +34,7 @@ app.use(cookieParser())
 app.use(userRouter);
 app.use('/doctor', doctorRouter);
 app.use('/appointment', appointmentRouter)
-app.use('purpose', purposeController)
+app.use('/purpose', purposeController)
 app.use(dashboardRouter)
 
 const server = app.listen(port, () => {
