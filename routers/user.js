@@ -3,7 +3,6 @@ const auth = require('../middlewares/auth')
 const asyncHandler = require('../middlewares/async')
 
 const UserController = require('../controllers/user');
-const useractivity = require('../../../SooriyA/worked project/nft/nft_backend(old)/nft_backend/models/useractivity');
 
 const userController = new UserController();
 
