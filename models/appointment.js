@@ -36,7 +36,7 @@ const AppointmentSchema = new mongoose.Schema({
     },
     to: {
         type: Date,
-        required: true
+        required: false
     }
 
 
