@@ -15,9 +15,10 @@ const AppointmentSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'doctor'
     },
-    purpose: {
-        type: String
-    },
+    purpose_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'purpose'
+    },   
     active: {
         type: Number,
         default: 0
@@ -30,7 +31,7 @@ const AppointmentSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    from: {
+    time: {
         type: Date,
         required: true
     },
