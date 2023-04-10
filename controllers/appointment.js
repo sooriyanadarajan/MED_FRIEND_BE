@@ -12,7 +12,7 @@ class AppointmentController {
 
 
     async listAppointment(req, res) {
-        let list = await Appointment.find({});
+        let list = await Appointment.find({}).populate('doctor_id');
         res.status(200).json({ success: true, message: 'Appointment Listed', data: list })
     }
 
