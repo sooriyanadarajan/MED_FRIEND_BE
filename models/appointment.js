@@ -31,6 +31,10 @@ const AppointmentSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    date: {
+        type: String,
+        required: true
+    },
     time: {
         type: Date,
         required: true
