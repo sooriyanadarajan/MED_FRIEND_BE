@@ -8,6 +8,7 @@ const useragent = require('express-useragent')
 const userRouter = require('./routers/user')
 const doctorRouter = require('./routers/doctor')
 const appointmentRouter = require('./routers/appointment')
+const purposeController = require('./routers/purpose')
 const dashboardRouter = require('./routers/dashboard')
 var cookieParser = require('cookie-parser')
 
@@ -33,6 +34,7 @@ app.use(cookieParser())
 app.use(userRouter);
 app.use('/doctor', doctorRouter);
 app.use('/appointment', appointmentRouter)
+app.use('purpose', purposeController)
 app.use(dashboardRouter)
 
 const server = app.listen(port, () => {
