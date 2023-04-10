@@ -22,6 +22,10 @@ var doctorSchema = mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false,
+    },
+    profile_image: {
+        type: String,
+        required: false,
     }
 }, { timestamps: true });
 
