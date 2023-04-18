@@ -31,7 +31,7 @@ class UserController {
                     return console.error(err);
                 }
                 // res.send('OTP Sent Successfully', 'Result_id: ', result)
-                console.log('OTP Sent Successfully', 'Result_id:', result);
+                console.log('Registered Successfully', 'Result_id:', result);
             })
             return res.status(201).send({ success: true, data: user._id, message: 'Successfully Register' })
         }

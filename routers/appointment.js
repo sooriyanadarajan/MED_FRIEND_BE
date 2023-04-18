@@ -11,7 +11,7 @@ const router = express.Router()
 
 
 //Doctor API's
-router.post('/create',  asyncHandler(appointmentController.createAppointment))
+router.post('/create',auth,  asyncHandler(appointmentController.createAppointment))
 router.get('/list',  auth,asyncHandler(appointmentController.listAppointment))
 router.patch('/update',  asyncHandler(appointmentController.updateAppointment))
 router.delete('/delete/:id',  asyncHandler(appointmentController.deleteAppointment))
