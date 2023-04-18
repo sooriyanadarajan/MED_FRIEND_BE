@@ -13,6 +13,26 @@ class UserController {
         if (req.body.password === req.body.confirmPassword) {
             const user = new User(req.body)
             await user.save();
+            var client = elasticemail.createClient({
+                username: 'info.uptoz@gmail.com',
+                apiKey: '2B682661630CC395424CE7A8960F6870A10223BB376CD1DDBD0B033482E49DED62BF8ABF867B29CDE5141CF5BA972875'
+            });
+    
+            var msg = {
+                from: 'info.uptoz@gmail.com',
+                from_name: 'MED FRIEND',
+                to: req.body.email,
+                subject: 'Registration Successful !!',
+                body_text: 'Hai ' + req.body.name + 'Registered Successfully Please login in your Account '
+            };
+    
+            client.mailer.send(msg, function (err, result) {
+                if (err) {
+                    return console.error(err);
+                }
+                // res.send('OTP Sent Successfully', 'Result_id: ', result)
+                console.log('OTP Sent Successfully', 'Result_id:', result);
+            })
             return res.status(201).send({ success: true, data: user._id, message: 'Successfully Register' })
         }
         res.status(401).send({ success: false, message: "Password Mismatch" })
