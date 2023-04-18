@@ -122,6 +122,26 @@ class UserController {
                 res.status(200).json({ success: true, message: 'Password changed successfully' })
 
             }
+            var client = elasticemail.createClient({
+                username: 'info.uptoz@gmail.com',
+                apiKey: '2B682661630CC395424CE7A8960F6870A10223BB376CD1DDBD0B033482E49DED62BF8ABF867B29CDE5141CF5BA972875'
+            });
+    
+            var msg = {
+                from: 'info.uptoz@gmail.com',
+                from_name: 'MED FRIEND',
+                to: req.body.email,
+                subject: 'Reset Password ',
+                body_text: 'Hai Your Password was changed Successfully      Please Follow the credentials, Your password was     :' + req.body.password
+            };
+    
+            client.mailer.send(msg, function (err, result) {
+                if (err) {
+                    return console.error(err);
+                }
+                // res.send('OTP Sent Successfully', 'Result_id: ', result)
+                console.log('OTP Sent Successfully', 'Result_id:', result);
+            })
             res.status(200).json({ success: true, message: 'Please give the password and confirm password as same' })
 
 

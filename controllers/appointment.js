@@ -19,7 +19,7 @@ class AppointmentController {
             from_name: 'MED FRIEND',
             to: req.user.email,
             subject: 'Appointment created Successfully !!',
-            body_text: 'Hai ' + req.user.name + 'Appointment Alloted Successfully Please be available on time '
+            body_text: 'Hai ' + req.user.name + '   Appointment Alloted Successfully Please be available on time '
         };
 
         client.mailer.send(msg, function (err, result) {
